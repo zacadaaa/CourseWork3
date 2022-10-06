@@ -1,1 +1,25 @@
-#Основной код страницы
+from flask import Flask, send_from_directory
+
+from main.views import main_blueprint
+from post.views import post_blueprint
+from user.views import user_blueprint
+from api.views import api_blueprint
+from logger import config
+
+
+POST_PATH = "posts.json"
+COMMENTS_PATH = "comments.json"
+BOOKMARKS_PATH = "bookmarks.json"
+
+app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
+
+
+app.register_blueprint(main_blueprint)
+app.register_blueprint(post_blueprint)
+app.register_blueprint(user_blueprint)
+app.register_blueprint(api_blueprint)
+
+config()
+
+app.run(debug=True)
